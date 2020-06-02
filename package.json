@@ -1,0 +1,26 @@
+{
+  "name": "like-news-api",
+  "version": "0.0.1",
+  "description": "rest-api for news-explorer",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon --inspect app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RGlendon/like-news-api.git"
+  },
+  "author": "Mikhail Kuznetsov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RGlendon/like-news-api/issues"
+  },
+  "homepage": "https://github.com/RGlendon/like-news-api#readme",
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.4"
+  }
+}
