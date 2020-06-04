@@ -5,22 +5,27 @@ const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: true,
+    minlength: 2,
   },
   title: {
     type: String,
     required: true,
+    minlength: 2,
   },
   text: {
     type: String,
     required: true,
+    minlength: 2,
   },
   date: {
     type: String,
     required: true,
+    minlength: 2,
   },
   source: {
     type: String,
     required: true,
+    minlength: 2,
   },
   link: {
     type: String,

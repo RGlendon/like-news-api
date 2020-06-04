@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const { createUser, login } = require('./controllers/users');
 const CustomError = require('./helpers/custom-error');
-const { validatePassword, validateUrl } = require('./helpers/validations');
+const { validatePassword } = require('./helpers/validations');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -71,8 +71,10 @@ app.use((err, req, res, next) => {
       .send({ message: `${err.message.replace(/.*validation failed: /, '')}` });
   }
   // res.send(err);
-  return res.status(statusCode)
+  res.status(statusCode)
     .send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+
+  return next();
 });
 
 
