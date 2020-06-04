@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const CustomError = require('../helpers/errors/custom-error');
+const CustomError = require('../helpers/custom-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -61,6 +61,4 @@ module.exports = {
   login,
   getUser,
 };
-// getUsers,
-// updateProfile,
-// updateAvatar,
+

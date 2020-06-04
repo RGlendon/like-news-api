@@ -1,5 +1,5 @@
 const Article = require('../models/article');
-const CustomError = require('../helpers/errors/custom-error');
+const CustomError = require('../helpers/custom-error');
 
 
 const getArticles = (req, res, next) => {
