@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
-const Unauthorized = require('../helpers/errors/unauthorized');
+const CustomError = require('../helpers/errors/custom-error');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -30,20 +30,23 @@ const userSchema = new mongoose.Schema({
 });
 
 
-userSchema.statics.findUserByCredentials = function (email, password) {
-  return this.findOne({ email }).select('+password')
+function findUserByCredentials(email, password) {
+  return this.findOne({ email })
+    .select('+password')
     .then((user) => {
       if (!user) {
-        throw new Unauthorized('Неправильная почта или пароль');
+        throw CustomError(401, 'Неправильная почта или пароль');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            throw new Unauthorized('Неправильная почта или пароль');
+            throw CustomError(401, 'Неправильная почта или пароль');
           }
           return user;
         });
     });
-};
+}
+
+userSchema.statics.findUserByCredentials = findUserByCredentials;
 
 module.exports = mongoose.model('user', userSchema);

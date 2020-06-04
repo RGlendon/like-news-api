@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const { Unauthorized } = require('../helpers/errors/unauthorized');
+const CustomError = require('../helpers/errors/custom-error');
 
 
 const auth = (req, res, next) => {
@@ -10,13 +10,13 @@ const auth = (req, res, next) => {
   let payload;
 
   if (!token) {
-    throw new Unauthorized('Необходима авторизация');
+    throw CustomError(401, 'Необходима авторизация');
   }
 
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (e) {
-    throw new Unauthorized('Необходима авторизация');
+    throw CustomError(401, 'Необходима авторизация');
   }
 
   req.user = payload;

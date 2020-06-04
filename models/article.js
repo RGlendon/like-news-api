@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const { isURL } = require('validator');
+const validator = require('validator');
 
 const articleSchema = new mongoose.Schema({
-  keywords: {
+  keyword: {
     type: String,
     required: true,
   },
@@ -27,7 +27,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        return isURL(value);
+        return validator.isURL(value);
       },
       message: 'введите URL в формате: http://my-site.ru/...',
     },
@@ -37,19 +37,25 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        return isURL(value);
+        return validator.isURL(value);
       },
       message: 'введите URL в формате: http://my-site.ru/...',
     },
   },
   owner: {
-    type: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
-    }],
-    default: [],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
     select: false,
   },
+  // owner: {
+  //   type: [{
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'user',
+  //   }],
+  //   default: [],
+  //   select: false,
+  // },
 });
 
 module.exports = mongoose.model('article', articleSchema);

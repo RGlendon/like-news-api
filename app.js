@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const { createUser, login } = require('./controllers/users');
-const NotFoundError = require('./helpers/errors/not-found-err');
+const CustomError = require('./helpers/errors/custom-error');
+const auth = require('./middlewares/auth');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -27,8 +28,12 @@ mongoose.connect('mongodb://localhost:27017/like-news', {
 app.post('/signup', createUser);
 app.post('/signin', login);
 
+app.use('/users', auth, require('./routes/users'));
+app.use('/articles', auth, require('./routes/articles'));
+
+
 app.use('/', (req, res, next) => {
-  Promise.reject(new NotFoundError('Запрашиваемый ресурс не найден'))
+  Promise.reject(CustomError(404, 'Запрашиваемый ресурс не найден'))
     .catch(next);
 });
 
@@ -39,9 +44,9 @@ app.use((err, req, res, next) => {
     return res.status(409)
       .send({ message: `пользователь с ${Object.keys(err.keyValue)}: ${Object.values(err.keyValue)} уже существует` });
   }
-  if (err.message.startsWith('user validation failed')) {
+  if (err.message.includes('validation failed')) {
     return res.status(400)
-      .send({ message: `${err.message.replace('user validation failed: ', '')}` });
+      .send({ message: `${err.message.replace(/.*validation failed: /, '')}` });
   }
   // res.send(err);
   return res.status(statusCode)

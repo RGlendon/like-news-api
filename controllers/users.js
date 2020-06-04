@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-// const NotFoundError = require('../helpers/errors/not-found-err');
+const CustomError = require('../helpers/errors/custom-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -44,22 +44,22 @@ const login = (req, res, next) => {
 };
 
 
-// const getUser = (req, res, next) => User
-//   .findById(req.params.userId)
-//   .then((user) => {
-//     if (!user) {
-//       throw new NotFoundError('Пользователь не найден');
-//     }
-//     res.send({ data: user });
-//   })
-//   .catch(next);
+const getUser = (req, res, next) => User
+  .findById(req.user._id)
+  .then((user) => {
+    if (!user) {
+      throw CustomError(404, 'Пользователь не найден');
+    }
+    res.send({ data: user });
+  })
+  .catch(next);
 
 
 module.exports = {
   createUser,
   login,
+  getUser,
 };
 // getUsers,
-// getUser,
 // updateProfile,
 // updateAvatar,
