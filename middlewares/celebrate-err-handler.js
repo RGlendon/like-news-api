@@ -24,6 +24,9 @@ const celebrateError = (err, req, res, next) => {
       case 'string.empty':
         strErr = 'поле не может быть пустым';
         break;
+      case 'string.email':
+        strErr = 'введите email в формате: hello.everybody@yandex.ru';
+        break;
       case 'any.custom':
         strErr = err.joi.details[0].message.replace(/.*failed custom validation because /, '');
         break;
