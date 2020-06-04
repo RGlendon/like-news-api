@@ -14,7 +14,7 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
 const app = express();
 
 
@@ -23,12 +23,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-mongoose.connect('mongodb://localhost:27017/like-news', {
+mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : 'mongodb://localhost:27017/like-news-dev', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 })
-  .then((status) => console.log(`MongoDB успешно подключен. Ресурсы: ${Object.keys(status.models)}`))
+  .then((status) => console.log(`Сервер успешно подключен к "${status.connections[0].name}" MongoDB. Ресурсы: ${Object.keys(status.models)}`))
   .catch((err) => console.log(`Не удается подключиться к MongoDB. Запустите базу данных. ${err}`));
 
 
