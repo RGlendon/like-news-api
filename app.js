@@ -7,6 +7,7 @@ require('dotenv').config();
 const { createUser, login } = require('./controllers/users');
 const CustomError = require('./helpers/errors/custom-error');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -25,17 +26,22 @@ mongoose.connect('mongodb://localhost:27017/like-news', {
   .catch((err) => console.log(`Не удается подключиться к MongoDB. Запустите базу данных. ${err}`));
 
 
+app.use(requestLogger);
+
+
 app.post('/signup', createUser);
 app.post('/signin', login);
 
 app.use('/users', auth, require('./routes/users'));
 app.use('/articles', auth, require('./routes/articles'));
 
-
 app.use('/', (req, res, next) => {
   Promise.reject(CustomError(404, 'Запрашиваемый ресурс не найден'))
     .catch(next);
 });
+
+
+app.use(errorLogger);
 
 
 app.use((err, req, res, next) => {
