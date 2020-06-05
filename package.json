@@ -1,6 +1,6 @@
 {
   "name": "like-news-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "rest-api for news-explorer",
   "main": "app.js",
   "scripts": {
