@@ -22,7 +22,7 @@ const bannerCreateAcc = (req, res, next) => {
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 100,
   onLimitReached(req) {
     bannedIPs[req.ip] = Date.now() + 60 * 60 * 1000;
     throw CustomError(429, `Слишком много запросов, повторите попытку ${new Date(bannedIPs[req.ip])}`);
