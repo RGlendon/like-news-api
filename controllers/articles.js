@@ -18,7 +18,7 @@ const createArticle = (req, res, next) => {
     keyword, title, text, date, source, link, image, owner,
   })
     .then((article) => Article.findOne({ _id: article._id }))
-    .then((article) => res.send({ data: article }))
+    .then((article) => res.status(201).send({ data: article }))
     // .then((article) => { article.owner = undefined; res.send({ data: article });})
     .catch(next);
 };

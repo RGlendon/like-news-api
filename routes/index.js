@@ -1,6 +1,6 @@
 const router = require('express').Router();
-
 const { celebrate, Joi } = require('celebrate');
+
 const { createUser, login } = require('../controllers/users');
 const CustomError = require('../helpers/custom-error');
 const { validatePassword } = require('../helpers/validations');

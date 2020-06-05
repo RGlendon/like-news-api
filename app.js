@@ -1,7 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
+const helmet = require('helmet');
 require('dotenv').config();
 
 const CelebrateErrHandler = require('./middlewares/celebrate-err-handler');
@@ -9,16 +10,17 @@ const CentralErrHandler = require('./middlewares/central-err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 
+const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
 const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
 const app = express();
 
-
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : 'mongodb://localhost:27017/like-news-dev', {
+mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : DB_ADDRESS_DEV, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
