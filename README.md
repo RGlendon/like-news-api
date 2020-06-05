@@ -1,64 +1,131 @@
-<h1 align="center">backend для like-news</h1>
+<h1 align="center">like-news-api</h1>
 
 <p align="center">
+    <img src="https://img.shields.io/badge/version-1.0.0-blue">
+    <img src="https://img.shields.io/github/languages/top/RGlendon/like-news-api?style=flat&color=yellow">
+    <img src="https://img.shields.io/github/stars/RGlendon/like-news-api.svg?style=flat&color=green">
+</p>
 
-<img src="https://img.shields.io/badge/version-1.0.0-blue">
-<img src="https://img.shields.io/github/languages/top/RGlendon/like-news-api?style=flat&color=red">
-<img src="https://img.shields.io/github/stars/RGlendon/like-news-api.svg?style=flat&color=green">
+_backend для дипломного проекта like-news-browser_
 
+---
+В данном репозитории представленна серверная часть проекта **like-news**. 
+Используется модуль express в связке с MongoDB. Реализованная двойная валидация данных, 
+бережное хранение пароля с помощью brypctjs, аутентификация и приняты меры против различных атак.  
+ 
+### Локальный запуск
+```
+mongod // в командной строке
 
-
-В проекте используются NoSQL база данных MongoDB
-
-###Как обратиться к серверу
+npm install --package-lock.json
+npm run dev
+```
+ 
+### Как обратиться к серверу
 
 - по публичному IP-адресу: **84.201.128.212**
 
 - по http и по https, используя домен: **roldglendonmesto.tk**
 
 
-###На сервере в данный момент реализовано следующее API:
-####Пользователь:
+### API:
 
-1. Вернуть всех пользователей
+**Пользователь**:
 
-* URL ```/users```
+* ```POST /signup``` создаёт пользователя с переданными в теле данными;
 
-* Method: **GET**
+```
+Code: 201
+Content: {
+            "data": {
+                "_id": "5eda9ba17dfa0b1d647c4dc9",
+                "email": "rold.glendon@gmail.com",
+                "name": "Mikhail",
+                "__v": 0
+            }
+}
+```
+* ```POST /signin``` возвращает JWT, если в теле запроса переданы правильные почта и пароль
 
-* URL Params: None
+```
+Code: 200
+Content: {
+            "message": "Вы залогинены!"
+}
+```
 
-* Data Params: None
 
-* Success Response:
+* ```GET /users/me``` возвращает информацию о пользователе (email и имя);
+
+```
+Code: 200
+Content: {
+            "data": {
+                "_id": "5eda9ba17dfa0b1d647c4dc9",
+                "email": "rold.glendon@gmail.com",
+                "name": "Mikhail",
+                "__v": 0
+            }
+}
+```
+**Статьи**:
+
+* ```GET /articles```  все сохранённые пользователем статьи;
 
 ```
 Code: 200
 Content: {
              "data": [
                  {
-                     "_id": "5ea4336194fda62964025dd7",
-                     "name": "Имя пользователя",
-                     "about": "информация о пользователе",
-                     "avatar": "https://i03.fotocdn.net/s119/d69501142c8bfad3/user_xl/2727465324.jpg",
+                     "_id": "5edac357c1397b1bc046c678",
+                     "keyword": "погода",
+                     "title": "Заголовок",
+                     "text": "Описание статьи",
+                     "date": "сегодня 2020",
+                     "source": "друг рассказал",
+                     "link": "https://webformyself.com/function-declaration-i-function-expression-v-javascript/",
+                     "image": "https://img3.goodfon.ru/original/2690x1780/f/e8/beautiful-landscape-les.jpg",
                      "__v": 0
                  },
                  ...
-                 ]
-          }
+}
 ```
-* Error Response:
+* ```POST /articles``` создаёт статью с переданными в теле данными;
 
 ```
-Code: 500 Internal Server Error
-Message: На сервере произошла ошибка
+Code: 201
+Content: {
+             "data": {
+                 "_id": "5edac407c1397b1bc046c67b",
+                 "keyword": "Путешествия",
+                 "title": "Заголовок",
+                 "text": "Описание статьи",
+                 "date": "сегодня 2020",
+                 "source": "друг рассказал",
+                 "link": "https://webformyself.com/function-declaration-i-function-expression-v-javascript/",
+                 "image": "https://img3.goodfon.ru/original/2690x1780/f/e8/beautiful-landscape-les.jpg",
+                 "__v": 0
+             }
+}
 ```
 
 
-2. **GET** /users/:userId - возвращает пользователя по _id
-3. **POST** /users — создаёт пользователя (передаваемые параметры: *name*, *about* и *avatar*)
+* `DELETE /articles/articleId` удаляет сохранённую статью по `_id`
 
-#### Карточка
-1. **GET** /cards — возвращает все карточки
-2. **POST** /cards — создаёт карточку (передаваемые параметры: *name*, *link*)
-3. **DELETE** /cards/:cardId — удаляет карточку по идентификатору
+```
+Code: 200
+Content: {
+             "data": {
+                 "_id": "5edac357c1397b1bc046c678",
+                 "keyword": "погода",
+                 "title": "Заголовок",
+                 "text": "Описание статьи",
+                 "date": "сегодня 2020",
+                 "source": "друг рассказал",
+                 "link": "https://webformyself.com/function-declaration-i-function-expression-v-javascript/",
+                 "image": "https://img3.goodfon.ru/original/2690x1780/f/e8/beautiful-landscape-les.jpg",
+                 "owner": "5eda9ba17dfa0b1d647c4dc9",
+                 "__v": 0
+             }
+}
+```

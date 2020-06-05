@@ -17,7 +17,7 @@ const createUser = (req, res, next) => {
       name,
     }))
     .then((user) => User.findOne({ _id: user._id }))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.status(201).send({ data: user }))
     .catch(next);
 };
 
