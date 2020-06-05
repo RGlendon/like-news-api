@@ -2,7 +2,7 @@ const rateLimit = require('express-rate-limit');
 
 const CustomError = require('../helpers/custom-error');
 
-
+// по идее можно добавлять их в MongoDb
 const bannedIPsCreateAcc = {};
 const bannedIPs = {};
 

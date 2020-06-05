@@ -8,10 +8,9 @@ require('dotenv').config();
 const CelebrateErrHandler = require('./middlewares/celebrate-err-handler');
 const CentralErrHandler = require('./middlewares/central-err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { banner, apiLimiter } = require('./middlewares/rate-limiter');
-
-
 const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
+
+
 const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
 const app = express();
 
