@@ -8,9 +8,9 @@ require('dotenv').config();
 const CelebrateErrHandler = require('./middlewares/celebrate-err-handler');
 const CentralErrHandler = require('./middlewares/central-err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-
 const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
+
+
 const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
 const app = express();
 
@@ -30,7 +30,7 @@ mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : DB_ADDRESS_DEV, {
 
 
 app.use(requestLogger);
-app.use(require('./routes'));
+app.use('/api/', require('./routes'));
 
 app.use(errorLogger);
 app.use(CelebrateErrHandler);
