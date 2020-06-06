@@ -23,9 +23,7 @@ npm run dev
  
 ### Как обратиться к серверу
 
-- по публичному IP-адресу: **84.201.128.212**
-
-- по http и по https, используя домен: **roldglendonmesto.tk**
+- **http(s)://api.like-news.ga/api/...**
 
 
 ### API:
