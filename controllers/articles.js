@@ -32,7 +32,9 @@ const deleteArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw CustomError(403, 'Вы можете удалять только свои статьи');
       }
-      // нужно ли здесь скрывать owner? article.owner = undefined;
+      // нужно ли здесь скрывать owner?
+      article.owner = undefined;
+      console.dir(article);
       res.send({ data: article });
       article.remove();
     })
