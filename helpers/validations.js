@@ -28,7 +28,7 @@ const validateDate = (value) => {
 const validateId = (value) => {
   // console.log(mongoose.Types.ObjectId.isValid(value))
   if (!mongoose.Types.ObjectId.isValid(value)) {
-    throw new Error('некорректное id');
+    throw new Error('некорректный id статьи');
   }
   return value;
 };

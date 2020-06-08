@@ -48,9 +48,11 @@ function findUserByCredentials(email, password) {
 }
 
 function clearingInfo(user) {
-  user = user.toObject();
-  delete user._id;
-  return user;
+  // eslint выдает ошибку no-param-reassign в таком коде
+  // user = user.toObject();
+  const clearUser = user.toObject();
+  delete clearUser._id;
+  return clearUser;
 }
 
 userSchema.statics.findUserByCredentials = findUserByCredentials;

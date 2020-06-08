@@ -64,9 +64,10 @@ const articleSchema = new mongoose.Schema({
 });
 
 function clearingInfo(article) {
-  article = article.toObject();
-  delete article.owner;
-  return article;
+  // зачем здесь создавать еще одну переменную, у нас же и так есть art - внутренняя переменная
+  const clearArticle = article.toObject();
+  delete clearArticle.owner;
+  return clearArticle;
 }
 
 articleSchema.statics.clearingInfo = clearingInfo;

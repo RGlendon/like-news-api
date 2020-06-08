@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 require('dotenv').config();
 
-const CelebrateErrHandler = require('./middlewares/celebrate-err-handler');
-const CentralErrHandler = require('./middlewares/central-err-handler');
+const celebrateErrHandler = require('./middlewares/celebrate-err-handler');
+const centralErrHandler = require('./middlewares/central-err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
 
@@ -33,8 +33,8 @@ app.use(requestLogger);
 app.use('/v1/', require('./routes'));
 
 app.use(errorLogger);
-app.use(CelebrateErrHandler);
-app.use(CentralErrHandler);
+app.use(celebrateErrHandler);
+app.use(centralErrHandler);
 
 
 app.listen(PORT, () => {
