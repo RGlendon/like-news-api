@@ -31,6 +31,7 @@ const apiLimiter = rateLimit({
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 3,
+  skipFailedRequests: true,
   onLimitReached(req) {
     bannedIPsCreateAcc[req.ip] = Date.now() + 60 * 60 * 1000;
     throw CustomError(429, `Слишком много аккаунтов создано с этого IP, повторите попытку ${new Date(bannedIPsCreateAcc[req.ip])}`);
