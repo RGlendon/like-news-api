@@ -23,7 +23,7 @@ npm run dev
  
 ### Как обратиться к серверу
 
-- **http(s)://api.like-news.ga/api/...**
+- **http(s)://api.like-news.ga/v1/...**
 
 
 ### API:
@@ -36,7 +36,6 @@ npm run dev
 Code: 201
 Content: {
             "data": {
-                "_id": "5eda9ba17dfa0b1d647c4dc9",
                 "email": "rold.glendon@gmail.com",
                 "name": "Mikhail",
                 "__v": 0
@@ -59,7 +58,6 @@ Content: {
 Code: 200
 Content: {
             "data": {
-                "_id": "5eda9ba17dfa0b1d647c4dc9",
                 "email": "rold.glendon@gmail.com",
                 "name": "Mikhail",
                 "__v": 0

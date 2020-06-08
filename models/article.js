@@ -63,4 +63,12 @@ const articleSchema = new mongoose.Schema({
   // },
 });
 
+function clearingInfo(article) {
+  article = article.toObject();
+  delete article.owner;
+  return article;
+}
+
+articleSchema.statics.clearingInfo = clearingInfo;
+
 module.exports = mongoose.model('article', articleSchema);

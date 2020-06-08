@@ -30,7 +30,7 @@ mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : DB_ADDRESS_DEV, {
 
 
 app.use(requestLogger);
-app.use('/api/', require('./routes'));
+app.use('/v1/', require('./routes'));
 
 app.use(errorLogger);
 app.use(CelebrateErrHandler);

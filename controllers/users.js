@@ -17,7 +17,8 @@ const createUser = (req, res, next) => {
       name,
     }))
     .then((user) => User.findOne({ _id: user._id }))
-    .then((user) => res.status(201).send({ data: user }))
+    .then((user) => res.status(201)
+      .send({ data: User.clearingInfo(user) }))
     .catch(next);
 };
 
@@ -51,7 +52,7 @@ const getUser = (req, res, next) => User
     if (!user) {
       throw CustomError(404, 'Пользователь не найден');
     }
-    res.send({ data: user });
+    res.send({ data: User.clearingInfo(user) });
   })
   .catch(next);
 

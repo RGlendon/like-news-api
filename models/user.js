@@ -47,6 +47,13 @@ function findUserByCredentials(email, password) {
     });
 }
 
+function clearingInfo(user) {
+  user = user.toObject();
+  delete user._id;
+  return user;
+}
+
 userSchema.statics.findUserByCredentials = findUserByCredentials;
+userSchema.statics.clearingInfo = clearingInfo;
 
 module.exports = mongoose.model('user', userSchema);

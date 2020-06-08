@@ -17,9 +17,7 @@ const createArticle = (req, res, next) => {
   Article.create({
     keyword, title, text, date, source, link, image, owner,
   })
-    .then((article) => Article.findOne({ _id: article._id }))
-    .then((article) => res.status(201).send({ data: article }))
-    // .then((article) => { article.owner = undefined; res.send({ data: article });})
+    .then((article) => res.status(201).send({ data: Article.clearingInfo(article) }))
     .catch(next);
 };
 
@@ -32,10 +30,7 @@ const deleteArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw CustomError(403, 'Вы можете удалять только свои статьи');
       }
-      // нужно ли здесь скрывать owner?
-      article.owner = undefined;
-      console.dir(article);
-      res.send({ data: article });
+      res.send({ data: Article.clearingInfo(article) });
       article.remove();
     })
     .catch(next);
