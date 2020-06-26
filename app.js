@@ -13,7 +13,7 @@ const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
 const allowCors = require('./middlewares/allowCors');
 
 
-const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
+const { PORT = 4000, NODE_ENV, DB_ADDRESS } = process.env;
 const app = express();
 
 app.use(helmet());
