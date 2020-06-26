@@ -1,7 +1,8 @@
 const CustomError = require('../helpers/custom-error');
 
 const allowedCors = [
-  'http://localhost:8080',
+  // 'http://localhost:8080',
+  'https://rglendon.github.io',
 ];
 
 const allowCors = (req, res, next) => {
