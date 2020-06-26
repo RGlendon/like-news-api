@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+// const cors = require('cors');
 require('dotenv').config();
 
 const celebrateErrHandler = require('./middlewares/celebrate-err-handler');
 const centralErrHandler = require('./middlewares/central-err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS_DEV } = require('./helpers/dev-config');
+const allowCors = require('./middlewares/allowCors');
 
 
 const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
@@ -30,6 +32,8 @@ mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : DB_ADDRESS_DEV, {
 
 
 app.use(requestLogger);
+app.use(allowCors)
+// app.use(cors());
 app.use('/v1/', require('./routes'));
 
 app.use(errorLogger);

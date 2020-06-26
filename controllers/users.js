@@ -39,10 +39,15 @@ const login = (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       })
-        .send({ message: 'Вы залогинены!' }) // для проверки
+        .send({ name: user.name }) // для проверки
         .end();
     })
     .catch(next);
+};
+
+const logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.send({ message: 'cookie has been deleted' });
 };
 
 
@@ -60,5 +65,6 @@ const getUser = (req, res, next) => User
 module.exports = {
   createUser,
   login,
+  logout,
   getUser,
 };

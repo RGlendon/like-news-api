@@ -3,7 +3,7 @@ const CustomError = require('../helpers/custom-error');
 
 
 const getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
