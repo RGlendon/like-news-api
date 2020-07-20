@@ -53,18 +53,9 @@ const articleSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  // owner: {
-  //   type: [{
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'user',
-  //   }],
-  //   default: [],
-  //   select: false,
-  // },
 });
 
 function clearingInfo(article) {
-  // зачем здесь создавать еще одну переменную, у нас же и так есть article - внутренняя переменная
   const clearArticle = article.toObject();
   delete clearArticle.owner;
   return clearArticle;

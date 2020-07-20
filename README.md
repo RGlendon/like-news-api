@@ -11,11 +11,28 @@ _backend для дипломного проекта like-news-browser_
 ---
 В данном репозитории представлена серверная часть проекта **like-news**. 
 Используется модуль express в связке с MongoDB. Реализована двойная валидация данных, 
-бережное хранение пароля с помощью brypctjs, аутентификация и приняты меры против различных атак.  
+бережное хранение пароля с помощью bcryptjs, аутентификация и приняты меры против различных атак. 
+
+### установка MongoDB
+
+https://www.mongodb.com/try/download/community 
+
+https://www.mongodb.com/try/download/compass
+
+Создайте директорию для базы данных: 
+```
+cd /C
+mkdir -p data/db
+```
+
+Добавьте путь к папке bin в переменную окружения: обычно путь к исполняемым файлам C:\Program Files\MongoDB\Server\4.2\bin
  
+Официальная инструкция: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#install-mdb-edition
+
 ### Локальный запуск
 ```
-mongod // в командной строке
+// в командной строке
+mongod 
 
 npm install --package-lock.json
 npm run dev
@@ -23,7 +40,7 @@ npm run dev
  
 ### Как обратиться к серверу
 
-- **http(s)://api.like-news.ga/v1/...**
+- **http://localhost:4000/v1**
 
 
 ### API:
@@ -47,7 +64,7 @@ Content: {
 ```
 Code: 200
 Content: {
-            "message": "Вы залогинены!"
+            "name": "Mikhail"
 }
 ```
 
@@ -120,7 +137,6 @@ Content: {
                  "source": "друг рассказал",
                  "link": "https://webformyself.com/function-declaration-i-function-expression-v-javascript/",
                  "image": "https://img3.goodfon.ru/original/2690x1780/f/e8/beautiful-landscape-les.jpg",
-                 "owner": "5eda9ba17dfa0b1d647c4dc9",
                  "__v": 0
              }
 }
